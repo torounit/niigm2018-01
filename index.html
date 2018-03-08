@@ -1,0 +1,629 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement( 'link' );
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName( 'head' )[ 0 ].appendChild( link );
+	</script>
+
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/theme.css">
+	<link rel="stylesheet" href="css/chaos.css">
+	<link rel="stylesheet" href="css/components/media-object.css">
+</head>
+<body>
+<div class="reveal">
+	<div class="slides">
+		<section data-markdown>
+			# CSSと仲良くなるための考え方
+
+			新潟グラム2018 Vol.1@2018.03.09
+		</section>
+		<section data-markdown>
+			# `$whoami`
+		</section>
+
+		<section>
+
+			<div class="media-object">
+				<div class="media-object__body">
+					<h2 class="media-object__title"> Toro_Unit</h2>
+					<p class="media-object__sub-title">Hiroshi Urabe</p>
+					<ul>
+						<li>HAMWORKS Co., Ltd.</li>
+						<li>フロントエンドエンジニア</li>
+						<li>WordBench長野モデレーター</li>
+					</ul>
+				</div>
+
+				<figure class="media-object__image">
+					<img src="img/torounit.jpg" alt="Toro_Unit の顔写真">
+				</figure>
+			</div>
+
+		</section>
+
+
+		<section data-background="img/130608_Matsumoto_Castle_Matsumoto_Nagano_pref_Japan02bs4.jpg"></section>
+
+		<section>
+			<h1>長野県松本市からきました。</h1>
+
+			<ul>
+				<li>現存12天守の松本城あります。</li>
+				<li>セイジ・オザワ 松本フェスティバルとかやってる街です。</li>
+			</ul>
+
+			<p>
+				<small>Author: 663highland. License: CC BY 2.5.</small>
+				<br>
+				<small><a
+					href="https://commons.wikimedia.org/wiki/File:130608_Matsumoto_Castle_Matsumoto_Nagano_pref_Japan02bs4.jpg">File:130608
+					Matsumoto Castle Matsumoto Nagano pref Japan02bs4.jpg - Wikimedia Commons</a></small>
+			</p>
+
+		</section>
+
+		<section data-background="img/sapporo.png">
+			<h1 style="text-shadow: 0 0 5px #000;">札幌でリモートワークはじめました</h1>
+		</section>
+
+		<section>
+
+			<div class="media-object">
+				<div class="media-object__body">
+					<h2 class="media-object__title">WorBench 長野</h2>
+					<ul>
+						<li>WordPress のローカルコミュニティ</li>
+						<li>ピザ食べながらWordPressの話してます。</li>
+					</ul>
+				</div>
+				<figure class="media-object__image">
+					<img src="img/pizza.jpg" alt="WordBench長野で食べてるピザの写真">
+				</figure>
+			</div>
+
+		</section>
+		<section data-background="img/wbnaganosp.png"></section>
+		<section data-background="img/wbnaganosp.jpg"></section>
+		<section>
+			<h1>ほんだい。</h1>
+		</section>
+
+		<section>
+			<h1>Q. CSSって簡単?</h1>
+		</section>
+
+		<section>
+			<pre><code class="hljs html"><h1 class="title">サイトのタイトル</h1>
+<main id="main-contents">
+	<h1 class="title">ブログのタイトル</h1>
+	<article class="post">
+		<header class="headline">
+			<h1 class="title">記事のタイトル</h1>
+		</header>
+	</article>
+</main></code></pre>
+
+		</section>
+		<section data-markdown>
+			# CSSって簡単!
+
+			```
+			.title {
+			color: red;
+			}
+			```
+
+		</section>
+		<section data-markdown="">
+			# CSSって簡単!
+
+			```CSS
+			.title {
+			color: red;
+			}
+			.post .title {
+			color: yellow;
+			}
+			```
+		</section>
+		<section data-markdown="">
+			# CSSって簡単?????
+
+			```CSS
+			.title {
+			color: red;
+			}
+			#main-contents .title {
+			color: orange;
+			}
+			.post .title {
+			color: yellow; /*黄色にならない！！！*/
+			}
+			```
+		</section>
+
+		<section>
+			<h2>何色になるでしょう</h2>
+
+			<pre><code><h1 class="title">サイトのタイトル</h1>
+<main id="main-contents">
+	<h1 class="title">ブログのタイトル</h1>
+	<article class="post">
+		<header class="headline">
+			<h1 class="title">記事のタイトル</h1>
+		</header>
+	</article>
+</main></code></pre>
+
+
+			<pre><code>.title:first-child { color: red; }
+#main-contents .title { color: orange; }
+.post .title { color: yellow; }
+h1.title { color: green; }
+main#main-contents article .title { color: blue; }
+main#main-contents .headline h1 { color: violet; }
+main article header h1.title { color: pink; }
+main#main-contents .post:first-child h1 { color: white; }</code></pre>
+		</section>
+
+		<section>
+			<h1 class="title">サイトのタイトル</h1>
+			<main id="main-contents">
+				<h1 class="title">ブログのタイトル</h1>
+				<article class="post">
+					<header class="headline">
+						<h1 class="title">記事のタイトル</h1>
+					</header>
+				</article>
+			</main>
+		</section>
+
+		<section>
+			<p class="fragment">CSSは簡単に書ける</p>
+			<p class="fragment">が、しかし、</p>
+			<p class="fragment">量が増えると複雑に。。。</p>
+		</section>
+
+		<section>
+			<h2>ところで、日本語って簡単？難しい？</h2>
+		</section>
+
+		<section>
+			<ol>
+				<li class="fragment">「わたしはペンを持っている」→ 簡単。</li>
+				<li class="fragment">140 文字以内で何か適当な文章。→ 難しくない。</li>
+				<li class="fragment">1000文字の読書感想文 → ちょっと大変かも。</li>
+				<li class="fragment">3万文字の論文 → 難しい。</li>
+			</ol>
+		</section>
+
+		<section>
+			<h2>文章を読みやすくするために</h2>
+			<ul>
+				<li class="fragment">章・節などで文章を小分けにする。</li>
+				<li class="fragment">起承転結、序破急、IMRAD等の更正法に従う。</li>
+				<li class="fragment">(IMRAD: Introduction, Methods, Results And Discussion)</li>
+				<li class="fragment">推敲、校正</li>
+			</ul>
+		</section>
+
+		<section>
+			<h1>HTML/CSSでも、同じことをやろう</h1>
+		</section>
+
+		<section>
+			<h2>CSSの構成方法</h2>
+			<p>おおざっぱに分けるとこの3つ。</p>
+			<ol>
+				<li class="fragment">Reset/Normalize</li>
+				<li class="fragment">Base</li>
+				<li class="fragment">Components</li>
+			</ol>
+		</section>
+
+		<section>
+			<h1>Reset/Normalize</h1>
+			<p>ブラウザのごとのデフォルトCSS違いを均一化。</p>
+			<ul>
+				<li>Normalize.css</li>
+				<li>Sanitize.css</li>
+			</ul>
+		</section>
+
+		<section data-markdown>
+			# Base
+
+			HTML要素のサイト・アプリにおけるデフォルトスタイルの定義。
+
+			```CSS
+			h1 {
+			margin: 1em 0;
+			}
+
+			a {
+			color: #005cc5;
+			}
+
+			img {
+			max-width: 100%;
+			height: auto;
+			}
+			```
+
+		</section>
+
+		<section>
+			<h1>Components</h1>
+			<p>モジュールとか、ブロックとか様々な呼び方をされる。</p>
+
+		</section>
+
+		<section>
+			<h3>componentの例</h3>
+		</section>
+
+		<section>
+			<h3>HTML</h3>
+			<pre><code class="hljs html"><div class="media-object">
+	<div class="media-object__body">
+		<h2 class="media-object__title"> Toro_Unit</h2>
+		<p class="media-object__sub-title">Hiroshi Urabe</p>
+		<ul>
+			<li>HAMWORKS Co., Ltd.</li>
+			<li>フロントエンドエンジニア</li>
+			<li>WordBench長野モデレーター</li>
+		</ul>
+	</div>
+
+	<figure class="media-object__image">
+		<img src="img/torounit.jpg" alt="Toro_Unit の顔写真">
+	</figure>
+</div></code></pre>
+
+		</section>
+
+		<section data-markdown>
+			### CSS
+
+			```CSS
+			.media-object {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+			}
+			.media-object__body {
+				flex-grow: 1;
+				margin-right: 20px;
+				text-align: left;
+			}
+			.media-object__title {
+				font-size: 2em;
+			}
+			.media-object__sub-title {
+				font-size: 1em;
+			}
+			.media-object__image {
+				width: 40%;
+			}
+			```
+
+		</section>
+
+		<section>
+
+			<div class="media-object">
+				<div class="media-object__body">
+					<h2 class="media-object__title"> Toro_Unit</h2>
+					<p class="media-object__sub-title">Hiroshi Urabe</p>
+					<ul>
+						<li>HAMWORKS Co., Ltd.</li>
+						<li>フロントエンドエンジニア</li>
+						<li>WordBench長野モデレーター</li>
+					</ul>
+				</div>
+
+				<figure class="media-object__image">
+					<img src="img/torounit.jpg" alt="Toro_Unit の顔写真">
+				</figure>
+			</div>
+
+		</section>
+
+
+		<section>
+			<h2>Componentを作る上でだいじなこと。</h2>
+			<ul>
+				<li class="fragment">HTMLへのコンテキストへの依存を避ける</li>
+				<li class="fragment">class名でコンポーネントを表現</li>
+				<li class="fragment">他のコンポーネントへは触らない</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2>HTMLへのコンテキストへの依存を避ける</h2>
+
+		</section>
+
+		<section>
+			<pre><code>.card h1 {}</code></pre>
+		</section>
+
+		<section>
+			<p>h1がh2等に変わっても同じスタイルがあたって欲しいことのほうが多い。</p>
+		</section>
+
+		<section>
+			<pre><code>.card__title {}</code></pre>
+
+		</section>
+
+		<section>
+
+			<h2>class名でコンポーネントを表現</h2>
+
+		</section>
+
+		<section>
+
+			<h3>これでもいいいんじゃ・・・</h3>
+
+			<pre><code>.card .title {}</code></pre>
+		</section>
+
+		<section>
+
+			<h3>Section Title のスタイルは?????</h3>
+
+			<pre><code class="hljs html"><div class="post">
+	<h1 class="title">Post Title</h1>
+	<div class="card">
+		<h2 class="title">Section Title</h2>
+	</div>
+</div></code></pre>
+			<h5 style="text-align: left">card.css</h5>
+			<pre><code>.card {}
+.card .title {}
+</code></pre>
+			<h5 style="text-align: left">post.css</h5>
+			<pre><code>.post {}
+.post .title {}
+</code></pre>
+
+		</section>
+
+		<section>
+			<p class="fragment">"Section Title" は、<code>.card .title</code> にも、<code>.post .title</code> にもマッチする</p>
+			<p class="fragment"><strong>card.css と post.css の読み込み順、書き順で結果が変わる!!!</strong></p>
+		</section>
+
+		<section>
+			<pre><code class="hljs html"><div class="post">
+	<h1 class="post__title">Post Title</h1>
+	<div class="card">
+		<h2 class="card__title">Section Title</h2>
+	</div>
+</div></code></pre>
+			<h5 style="text-align: left">card.css</h5>
+			<pre><code>.card {}
+.card__title {}
+</code></pre>
+			<h5 style="text-align: left">post.css</h5>
+			<pre><code>.post {}
+.post__title {}
+</code></pre>
+		</section>
+
+		<section>
+			<h1>クラス命名のアイデア</h1>
+		</section>
+
+		<section>
+			<h1>BEM</h1>
+			<pre><code class="hljs html"><div class="block">
+	<div class="block__element"></div>
+	<div class="block__element block__element--‎modifier">
+	</div>
+</div></code></pre>
+			<pre><code>.block {}
+.block__element {}
+.block__element--‎modifier {}
+</code></pre>
+		</section>
+
+		<section>
+			<h1>他のコンポーネントへは触らない</h1>
+		</section>
+
+		<section>
+			<h3>こういうCSSを書くと</h3>
+			<pre><code>.card {}
+.card .button {}
+</code></pre>
+
+		</section>
+
+		<section>
+			<pre><code class="hljs html"><div class="card">
+	<div class="card__body">
+		<a href="#" class="button button--primary"></a>
+	</div>
+</div></code></pre>
+			<pre><code>.card {}
+.card .button {}
+</code></pre>
+			<pre><code>.button {}
+.button.button--primary {}
+</code></pre>
+		</section>
+
+		<section>
+			<h3>Trouble...</h3>
+			<ul>
+				<li class="fragment">CSSの読み込み順、書き順で結果が変わる！</li>
+				<li class="fragment">セレクタを強くしたり、<code>!important</code>で解決したりしてより泥沼化。</li>
+				<li class="fragment">どのCSSが何処でどう影響しているかがよりわからないので消せない。</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2>ここら辺を頑張ればそこそこ良いCSSライフを送れる。</h2>
+		</section>
+
+		<section>
+			<h1>But...</h1>
+		</section>
+
+		<section>
+			<h1>それでもすぐCSSは壊れる</h1>
+		</section>
+
+		<section data-background-video="img/css.mp4"  style="text-shadow: 0 0 5px #000;">
+			<ul style="text-shadow: 0 0 5px #000; font-size: 1.5em;">
+				<li class="fragment">CSSは超ゆるふわ言語。簡単に壊れる。</li>
+				<li class="fragment">簡単に上書き可能。</li>
+				<li class="fragment">設計を守らせるための機能は無い。</li>
+				<li class="fragment">設計が破綻すると、収拾がつかなくなりがち</li>
+				<li class="fragment">そして上書きするしか出来ずに泥沼化。</li>
+			</ul>
+
+			<p class="fragment">引用: https://twitter.com/fffabs/status/946665861426933762/video/1</p>
+		</section>
+
+		<section>
+			<h2>整理整頓、ドキュメント、強い意志が大切</h2>
+		</section>
+
+		<section>
+			<h3>整理整頓</h3>
+
+			<p>デザインがブラウザで再現できた！で終わりにしない。絶対リファクタリングする！</p>
+			<p>最低限、コンポーネントごとにファイルを分割したりする。</p>
+
+		</section>
+
+
+		<section>
+			<h3>たぶん部屋の掃除と一緒</h3>
+
+			<div class="" style="text-align: left">
+				<img src="img/2847770266_cb8fc98cf3_o.jpg" alt="" style="float: right; width: 40%;">
+				<p>大切なのは大掃除では無く、日々の掃除。</p>
+				<p>決められた場所にちゃんとしまわないといざというときに場所がわからない。</p>
+				<p>少しの手間を惜しむと大惨事に。そして更に掃除が出来なくなる悪循環に。</p>
+			</div>
+
+		</section>
+
+
+		<section>
+
+			<h3>ドキュメンテーション</h3>
+
+			<ul>
+				<li class="fragment">Bootstrapみたいにコピペ出来るようなもの。言語では無く、機能ごとに分離。</li>
+				<li class="fragment">設計指針をしっかりチーム内で統一</li>
+				<li class="fragment">毎回やるのは大変なので、SMACSS、BEM等、そこそこ普及していて、プロジェクト・チームに合うルールを採用するのが吉。</li>
+			</ul>
+		</section>
+
+		<section data-markdown>
+			* [smacss](https://smacss.com/ja)
+			* [ECSS](http://ecss.io/)
+			* [SUIT CSS](http://suitcss.github.io/)
+
+		</section>
+
+
+
+		<section>
+			<div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+				<div>
+					<h2>More...?</h2>
+					<p>Web制作者のためのCSS設計の教科書</p>
+				</div>
+				<div style="width: 50%; height: auto">
+					<img src="img/CSS-text.jpg" alt="">
+				</div>
+
+			</div>
+
+		</section>
+		<section data-markdown>
+			## 参考資料など
+			* [CodeGrid](https://app.codegrid.net/)
+			* [CSS設計の理想と現実](http://www.slideshare.net/hiloki/css-54171523)
+			* [なんでCSSすぐ死んでしまうん](http://www.slideshare.net/hayatomizuno/css-41084761)
+		</section>
+
+		<section>
+			<h1>Thanks!</h1>
+			<ul>
+				<li>Github / @torounit</li>
+				<li>Twitter: @Toro_Unit</li>
+				<li>Facebook: fb.me/torounit</li>
+				<li>Blog: https://torounit.com</li>
+			</ul>
+		</section>
+
+
+	</div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+	// More info about config & dependencies:
+	// - https://github.com/hakimel/reveal.js#configuration
+	// - https://github.com/hakimel/reveal.js#dependencies
+	Reveal.initialize( {
+		controls: true,
+		progress: true,
+		history: true,
+		center: true,
+		dependencies: [
+			{
+				src: 'lib/js/classList.js', condition: function() {
+					return ! document.body.classList;
+				}
+			},
+			{
+				src: 'plugin/markdown/marked.js', condition: function() {
+					return ! ! document.querySelector( '[data-markdown]' );
+				}
+			},
+			{
+				src: 'plugin/markdown/markdown.js', condition: function() {
+					return ! ! document.querySelector( '[data-markdown]' );
+				}
+			},
+			{
+				src: 'plugin/highlight/highlight.js', async: true, callback: function() {
+					hljs.initHighlightingOnLoad();
+				}
+			},
+			{ src: 'plugin/search/search.js', async: true },
+			{ src: 'plugin/zoom-js/zoom.js', async: true },
+			{ src: 'plugin/notes/notes.js', async: true }
+		]
+	} );
+</script>
+</body>
+</html>

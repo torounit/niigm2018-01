@@ -1,0 +1,8 @@
+.title:first-child { color: red; }
+#main-contents .title { color: orange; }
+.post .title { color: yellow; }
+h1.title { color: green; }
+main#main-contents article .title { color: blue; }
+main#main-contents .headline h1 { color: violet; }
+main article header h1.title { color: pink; }
+main#main-contents .post:first-child h1 { color: white; }

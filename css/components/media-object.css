@@ -1,0 +1,27 @@
+/**
+ * Media Object
+ */
+.media-object {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.media-object__body {
+	flex-grow: 1;
+	margin-right: 20px;
+	text-align: left;
+}
+
+.media-object__title {
+	font-size: 2em;
+}
+
+.media-object__sub-title {
+	font-size: 1em;
+}
+
+.media-object__image {
+	width: 40%;
+}
