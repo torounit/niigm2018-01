@@ -44,8 +44,8 @@
 					<h2 class="media-object__title"> Toro_Unit</h2>
 					<p class="media-object__sub-title">Hiroshi Urabe</p>
 					<ul>
-						<li>HAMWORKS Co., Ltd.</li>
-						<li>フロントエンドエンジニア</li>
+						<li>HAMWORKS フロントエンドエンジニア</li>
+						<li>WordPress Plugin Theme Developer</li>
 						<li>WordBench長野モデレーター</li>
 					</ul>
 				</div>
@@ -86,7 +86,7 @@
 
 			<div class="media-object">
 				<div class="media-object__body">
-					<h2 class="media-object__title">WorBench 長野</h2>
+					<h2 class="media-object__title">WordBench 長野</h2>
 					<ul>
 						<li>WordPress のローカルコミュニティ</li>
 						<li>ピザ食べながらWordPressの話してます。</li>
@@ -201,13 +201,28 @@ main#main-contents .post:first-child h1 { color: white; }</code></pre>
 		</section>
 
 		<section>
+
+			<h1>良いCSSとは?</h1>
+			<ul>
+				<li>予測しやすい</li>
+				<li>再利用しやすい</li>
+				<li>保守しやすい</li>
+				<li>拡張しやすい</li>
+			</ul>
+
+			<p><a href="http://philipwalton.com/articles/css-architecture/">CSS Architecture — Philip Walton</a></p>
+			<p><a href="http://article.enja.io/articles/css-architecture.html">日本語訳</a></p>
+
+		</section>
+
+		<section>
 			<h2>ところで、日本語って簡単？難しい？</h2>
 		</section>
 
 		<section>
 			<ol>
 				<li class="fragment">「わたしはペンを持っている」→ 簡単。</li>
-				<li class="fragment">140 文字以内で何か適当な文章。→ 難しくない。</li>
+				<li class="fragment">140文字以内で何か適当な文章。→ 難しくない。</li>
 				<li class="fragment">1000文字の読書感想文 → ちょっと大変かも。</li>
 				<li class="fragment">3万文字の論文 → 難しい。</li>
 			</ol>
@@ -217,7 +232,7 @@ main#main-contents .post:first-child h1 { color: white; }</code></pre>
 			<h2>文章を読みやすくするために</h2>
 			<ul>
 				<li class="fragment">章・節などで文章を小分けにする。</li>
-				<li class="fragment">起承転結、序破急、IMRAD等の更正法に従う。</li>
+				<li class="fragment">起承転結、序破急、IMRAD等の法に従う。</li>
 				<li class="fragment">(IMRAD: Introduction, Methods, Results And Discussion)</li>
 				<li class="fragment">推敲、校正</li>
 			</ul>
@@ -253,16 +268,16 @@ main#main-contents .post:first-child h1 { color: white; }</code></pre>
 
 			```CSS
 			h1 {
-			margin: 1em 0;
+				margin: 1em 0;
 			}
 
 			a {
-			color: #005cc5;
+				color: #005cc5;
 			}
 
 			img {
-			max-width: 100%;
-			height: auto;
+				max-width: 100%;
+				height: auto;
 			}
 			```
 
@@ -352,6 +367,7 @@ main#main-contents .post:first-child h1 { color: white; }</code></pre>
 			<ul>
 				<li class="fragment">HTMLへのコンテキストへの依存を避ける</li>
 				<li class="fragment">class名でコンポーネントを表現</li>
+				<li class="fragment">セレクタを強くしない</li>
 				<li class="fragment">他のコンポーネントへは触らない</li>
 			</ul>
 		</section>
@@ -431,11 +447,11 @@ main#main-contents .post:first-child h1 { color: white; }</code></pre>
 		</section>
 
 		<section>
-			<h1>クラス命名のアイデア</h1>
+			<h2>クラス命名のアイデア</h2>
 		</section>
 
 		<section>
-			<h1>BEM</h1>
+			<h3>BEM (MindBEMding)</h3>
 			<pre><code class="hljs html"><div class="block">
 	<div class="block__element"></div>
 	<div class="block__element block__element--‎modifier">
@@ -445,6 +461,31 @@ main#main-contents .post:first-child h1 { color: white; }</code></pre>
 .block__element {}
 .block__element--‎modifier {}
 </code></pre>
+		</section>
+
+		<section>
+			<h1>セレクタを強くしない</h1>
+
+		</section>
+
+		<section>
+			<pre><code class="hljs html"><div class="page">
+	<a href="#" class="button">Button</a>
+</div></code></pre>
+
+			<pre><code>.page {}
+.page a { color: red };
+</code></pre>
+			<pre><code>.button {}
+.button--primary { color: green };/* 緑にならない！ */
+</code></pre>
+		</section>
+
+		<section>
+			<p class="fragment">WYSIWYGエディタでありがち。</p>
+			<p class="fragment">要素セレクタ以外の解決方法を考える。</p>
+			<p class="fragment">使いたくなったら、Baseで出来るんじゃ無いか？を考える。</p>
+			<p class="fragment">どうしても使いたくなってしまったら、中にコンポーネントを突っ込めないようなような作りに。</p>
 		</section>
 
 		<section>
@@ -465,20 +506,38 @@ main#main-contents .post:first-child h1 { color: white; }</code></pre>
 		<a href="#" class="button button--primary"></a>
 	</div>
 </div></code></pre>
+			<h5 style="text-align: left">card.css</h5>
 			<pre><code>.card {}
 .card .button {}
 </code></pre>
+			<h5 style="text-align: left">button.css</h5>
 			<pre><code>.button {}
-.button.button--primary {}
+.button--primary {}
 </code></pre>
 		</section>
 
 		<section>
 			<h3>Trouble...</h3>
 			<ul>
-				<li class="fragment">CSSの読み込み順、書き順で結果が変わる！</li>
+				<li class="fragment"><code>button--primary</code>が上書きされる!</li>
+				<li class="fragment">しかもcard.cssというボタンとは一件関連しなさそうなモノによって。</li>
 				<li class="fragment">セレクタを強くしたり、<code>!important</code>で解決したりしてより泥沼化。</li>
 				<li class="fragment">どのCSSが何処でどう影響しているかがよりわからないので消せない。</li>
+			</ul>
+		</section>
+
+
+		<section>
+			<h2>変更したい場所"のみ"が、変更出来るように作る。</h2>
+
+		</section>
+
+		<section>
+			<h4 style="text-align:left;">Keywords</h4>
+			<ul>
+				<li>関心の分離</li>
+				<li>単一責務の原則 (クラス・オブジェクトを変更する理由は一つ。)</li>
+				<li>開放閉鎖の原則 (容易に拡張可能かつ、それが他のオブジェクトに影響を与えない)</li>
 			</ul>
 		</section>
 
@@ -518,15 +577,21 @@ main#main-contents .post:first-child h1 { color: white; }</code></pre>
 
 		</section>
 
-
 		<section>
-			<h3>たぶん部屋の掃除と一緒</h3>
 
-			<div class="" style="text-align: left">
-				<img src="img/2847770266_cb8fc98cf3_o.jpg" alt="" style="float: right; width: 40%;">
-				<p>大切なのは大掃除では無く、日々の掃除。</p>
-				<p>決められた場所にちゃんとしまわないといざというときに場所がわからない。</p>
-				<p>少しの手間を惜しむと大惨事に。そして更に掃除が出来なくなる悪循環に。</p>
+			<div class="" style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+				<div style="text-align: left; width: 50%">
+					<h3>たぶん部屋の掃除と一緒</h3>
+					<ul>
+						<li>大切なのは大掃除では無く、日々の掃除。</li>
+						<li>決められた場所にちゃんとしまわないといざというときに場所がわからない。</li>
+						<li>そしてどんどんカオスに。</li>
+						<li>少しの手間を惜しむと大惨事に。</li>
+					</ul>
+
+				</div>
+				<img src="img/2847770266_cb8fc98cf3_o.jpg" alt="" style="width: 40%;">
+
 			</div>
 
 		</section>
@@ -545,6 +610,7 @@ main#main-contents .post:first-child h1 { color: white; }</code></pre>
 
 		<section data-markdown>
 			* [smacss](https://smacss.com/ja)
+			* [flocss](https://github.com/hiloki/flocss)
 			* [ECSS](http://ecss.io/)
 			* [SUIT CSS](http://suitcss.github.io/)
 
